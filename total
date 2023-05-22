@@ -1,0 +1,43 @@
+import random
+digits = '0123456789'
+lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
+uppercase_letters = lowercase_letters.upper()
+punctuation = '!#$%&*+-=?@^_'
+chars = ''
+
+pwd_quantity = int(input('Сколько паролей вам нужно сгенерировать? Ответ: '))
+pwd_len = int(input('Какой длины должен быть пароль? Ответ: '))
+pwd_digits = input('Включать ли в пароль цифры от 0 до 9? Ответ: (да/нет)')
+pwd_uppercase = input('Включать ли в пароль прописные буквы? Ответ: (да/нет)')
+pwd_lowercase = input('Включать ли в пароль строчные буквы? Ответ: (да/нет)')
+pwd_punctuation = input('Включать ли в пароль символы "!#$%&*+-=?@^_"? Ответ: (да/нет)')
+pwd_exceptions = input('Исключать ли неоднозначные символы "il1Lo0O"?  Ответ: (да/нет)')
+
+def add_simbols(): # добавление всех символов
+    if pwd_digits == "да":
+        global chars
+        chars += digits
+    if pwd_lowercase == "да":
+        chars += lowercase_letters
+    if pwd_uppercase == "да":
+        chars += uppercase_letters
+    if pwd_punctuation  == "да":
+        chars += punctuation
+
+add_simbols() # добавление всех символов
+
+if pwd_exceptions == "да": # удаление неоднозначных символов
+    chars = chars.replace("i", "")
+    chars = chars.replace("l", "")
+    chars = chars.replace("1", "")
+    chars = chars.replace("L", "")
+    chars = chars.replace("o", "")
+    chars = chars.replace("O", "")
+    chars = chars.replace("0", "")
+
+def generate_password(length, chars_fnc):
+    global pwd_quantity
+    for i in range(pwd_quantity):
+        print(f"Пароль №{i+1}: ","".join(random.sample(chars_fnc, length)))
+
+generate_password(pwd_len, chars)
